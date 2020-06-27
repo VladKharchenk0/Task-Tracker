@@ -45,4 +45,17 @@ public class UserRestController {
         return ResponseEntity.ok(String.format("User %s %s successfully updated",
                 userDto.getFirstName(), userDto.getLastName()));
     }
+
+    @GetMapping(value = "delete/{id}")
+    public ResponseEntity deleteUserById(@PathVariable(name = "id") Integer id) {
+        User user = userService.findById(id);
+
+        if (user == null) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        userService.delete(id);
+
+        return ResponseEntity.ok(String.format("User %s %s successfully deleted",
+                user.getFirstName(), user.getLastName()));
+    }
 }
