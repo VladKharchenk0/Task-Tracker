@@ -6,10 +6,7 @@ import com.gmail.kharchenko55.vlad.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping(value = "/users/")
@@ -33,5 +30,19 @@ public class UserRestController {
         UserDto result = UserDto.fromUser(user);
 
         return new ResponseEntity<>(result, HttpStatus.OK);
+    }
+
+    @PutMapping
+    public ResponseEntity updateUser(@RequestBody UserDto userDto){
+        User existing = userService.findByEmail(userDto.getEmail());
+        if (existing == null) {
+            throw new IllegalArgumentException(String.format("User with %s email doesnt exists", userDto.getEmail()));
+        }
+        User user = userDto.toUser();
+        user.setId(existing.getId());
+        userService.update(user);
+
+        return ResponseEntity.ok(String.format("User %s %s successfully updated",
+                userDto.getFirstName(), userDto.getLastName()));
     }
 }
