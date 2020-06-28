@@ -1,4 +1,4 @@
-package com.gmail.kharchenko55.vlad.model;
+package com.gmail.kharchenko55.vlad.model.user;
 
 import java.util.Arrays;
 import java.util.Optional;

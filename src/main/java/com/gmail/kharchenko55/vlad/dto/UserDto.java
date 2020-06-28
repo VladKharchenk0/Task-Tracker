@@ -1,7 +1,7 @@
 package com.gmail.kharchenko55.vlad.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.gmail.kharchenko55.vlad.model.User;
+import com.gmail.kharchenko55.vlad.model.user.User;
 import lombok.Data;
 
 @Data

@@ -1,6 +1,6 @@
 package com.gmail.kharchenko55.vlad.security.jwt;
 
-import com.gmail.kharchenko55.vlad.model.User;
+import com.gmail.kharchenko55.vlad.model.user.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;

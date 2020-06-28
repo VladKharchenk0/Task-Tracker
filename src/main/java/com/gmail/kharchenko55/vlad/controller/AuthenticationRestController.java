@@ -2,11 +2,9 @@ package com.gmail.kharchenko55.vlad.controller;
 
 import com.gmail.kharchenko55.vlad.dto.AuthenticationRequestDto;
 import com.gmail.kharchenko55.vlad.dto.UserDto;
-import com.gmail.kharchenko55.vlad.model.User;
+import com.gmail.kharchenko55.vlad.model.user.User;
 import com.gmail.kharchenko55.vlad.security.jwt.JwtTokenProvider;
 import com.gmail.kharchenko55.vlad.service.UserService;
-import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -14,6 +12,10 @@ import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.HashMap;
 import java.util.Map;

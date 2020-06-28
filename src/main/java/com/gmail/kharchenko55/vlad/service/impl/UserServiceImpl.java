@@ -1,14 +1,14 @@
 package com.gmail.kharchenko55.vlad.service.impl;
 
-import com.gmail.kharchenko55.vlad.model.User;
-import com.gmail.kharchenko55.vlad.model.UserStatus;
+import com.gmail.kharchenko55.vlad.model.user.User;
+import com.gmail.kharchenko55.vlad.model.user.UserStatus;
 import com.gmail.kharchenko55.vlad.repository.UserRepository;
 import com.gmail.kharchenko55.vlad.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.data.domain.Pageable;
 
 @Service
 public class UserServiceImpl implements UserService {

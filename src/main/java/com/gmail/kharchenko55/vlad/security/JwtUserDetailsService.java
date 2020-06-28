@@ -1,6 +1,6 @@
 package com.gmail.kharchenko55.vlad.security;
 
-import com.gmail.kharchenko55.vlad.model.User;
+import com.gmail.kharchenko55.vlad.model.user.User;
 import com.gmail.kharchenko55.vlad.security.jwt.JwtUserFactory;
 import com.gmail.kharchenko55.vlad.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;

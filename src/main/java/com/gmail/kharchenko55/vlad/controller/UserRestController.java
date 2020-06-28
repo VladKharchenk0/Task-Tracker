@@ -1,7 +1,7 @@
 package com.gmail.kharchenko55.vlad.controller;
 
 import com.gmail.kharchenko55.vlad.dto.UserDto;
-import com.gmail.kharchenko55.vlad.model.User;
+import com.gmail.kharchenko55.vlad.model.user.User;
 import com.gmail.kharchenko55.vlad.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;

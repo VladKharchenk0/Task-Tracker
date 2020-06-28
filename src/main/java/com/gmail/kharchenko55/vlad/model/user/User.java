@@ -1,11 +1,13 @@
-package com.gmail.kharchenko55.vlad.model;
+package com.gmail.kharchenko55.vlad.model.user;
 
 import com.gmail.kharchenko55.vlad.common.BaseEntity;
+import com.gmail.kharchenko55.vlad.model.task.Task;
 import lombok.Data;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
+import java.util.Set;
 
 
 @Entity
@@ -29,4 +31,7 @@ public @Data class User extends BaseEntity {
     @Column(name = "status")
     @Enumerated(EnumType.STRING)
     private UserStatus userStatus;
+
+    @OneToMany(mappedBy = "user")
+    private Set<Task> tasks;
 }
