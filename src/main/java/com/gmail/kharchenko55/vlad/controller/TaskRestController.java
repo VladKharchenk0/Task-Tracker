@@ -64,4 +64,22 @@ public class TaskRestController {
         return ResponseEntity.ok(String.format("Task %s successfully deleted",
                 task.getTitle()));
     }
+
+    @PutMapping(value = "changeStatus")
+    public ResponseEntity changeTaskStatus(@RequestBody TaskDto taskDto) {
+        Task task = taskService.getById(taskDto.getId());
+        if (task == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        if (taskDto.getTaskStatus().equals(task.getTaskStatus())){
+            return ResponseEntity.ok(String.format("Task %s already has %s status",
+                    task.getTitle(), task.getTaskStatus()));
+        }
+
+        task.setTaskStatus(taskDto.getTaskStatus());
+        taskService.update(task);
+
+        return ResponseEntity.ok(String.format("Task %s successfully changed status to %s",
+                task.getTitle(), task.getTaskStatus()));
+    }
 }
