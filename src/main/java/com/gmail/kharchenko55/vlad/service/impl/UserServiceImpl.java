@@ -5,10 +5,10 @@ import com.gmail.kharchenko55.vlad.model.UserStatus;
 import com.gmail.kharchenko55.vlad.repository.UserRepository;
 import com.gmail.kharchenko55.vlad.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
+import org.springframework.data.domain.Pageable;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -30,8 +30,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<User> getAllUsers() {
-        return userRepository.findAll();
+    public Page<User> getAllUsers(Pageable pageable) {
+        return userRepository.findAll(pageable);
     }
 
     @Override
