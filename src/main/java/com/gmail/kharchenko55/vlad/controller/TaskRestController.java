@@ -6,6 +6,7 @@ import com.gmail.kharchenko55.vlad.model.user.User;
 import com.gmail.kharchenko55.vlad.service.TaskService;
 import com.gmail.kharchenko55.vlad.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -49,5 +50,18 @@ public class TaskRestController {
         taskService.update(task);
         return ResponseEntity.ok(String.format("Task %s successfully updated",
                 taskDto.getTitle()));
+    }
+
+    @GetMapping(value = "delete/{id}")
+    public ResponseEntity deleteTaskById(@PathVariable(name = "id") Integer id) {
+       Task task = taskService.getById(id);
+
+        if (task == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        taskService.delete(id);
+
+        return ResponseEntity.ok(String.format("Task %s successfully deleted",
+                task.getTitle()));
     }
 }
