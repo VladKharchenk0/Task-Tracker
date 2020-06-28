@@ -7,10 +7,7 @@ import com.gmail.kharchenko55.vlad.service.TaskService;
 import com.gmail.kharchenko55.vlad.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
 
@@ -37,5 +34,20 @@ public class TaskRestController {
 
         return ResponseEntity.ok(String.format("Task %s for %s successfully created",
                 task.getTitle(), principal.getName()));
+    }
+
+    @PutMapping
+    public ResponseEntity updateTask(@RequestBody TaskDto taskDto) {
+        Task task = taskService.getById(taskDto.getId());
+        if (task==null){
+            throw new IllegalArgumentException(String.format("Task with id %d doesnt exists", taskDto.getId()));
+        }
+
+        task.setTitle(taskDto.getTitle());
+        task.setDescription(taskDto.getDescription());
+
+        taskService.update(task);
+        return ResponseEntity.ok(String.format("Task %s successfully updated",
+                taskDto.getTitle()));
     }
 }

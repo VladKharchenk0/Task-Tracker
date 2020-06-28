@@ -32,7 +32,7 @@ public class TaskServiceImpl implements TaskService {
 
     @Override
     public Task update(Task task) {
-        return null;
+        return taskRepository.save(task);
     }
 
     @Override
