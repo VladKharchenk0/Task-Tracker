@@ -31,6 +31,7 @@ public class UserDto {
         userDto.setFirstName(user.getFirstName());
         userDto.setLastName(user.getLastName());
         userDto.setEmail(user.getEmail());
+        userDto.setUserStatus(user.getUserStatus());
 
         return userDto;
     }

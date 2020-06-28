@@ -15,5 +15,7 @@ public interface TaskRepository extends JpaRepository<Task, Integer> {
 
     Page<Task> findAllByUser_UserStatus(UserStatus userStatus, Pageable pageable);
 
+    Page<Task> findAllByUser_Id(Integer id, Pageable pageable);
+
     Page<Task> findAll(Pageable pageable);
 }

@@ -20,15 +20,4 @@ public class TaskDto {
 
         return task;
     }
-
-    public static TaskDto fromTask(Task task) {
-       TaskDto taskDto = new TaskDto();
-       task.setId(task.getId());
-
-        task.setTitle(task.getTitle());
-        task.setDescription(task.getDescription());
-        task.setTaskStatus(task.getTaskStatus());
-
-        return taskDto;
-    }
 }

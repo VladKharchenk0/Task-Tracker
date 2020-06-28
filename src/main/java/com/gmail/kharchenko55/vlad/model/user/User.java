@@ -8,13 +8,13 @@ import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
-import java.util.Set;
-
+import java.util.List;
 
 @Entity
 @Component
 @Table(name = "users")
-public @Data class User extends BaseEntity {
+public @Data
+class User extends BaseEntity {
 
     @Column(name = "first_name")
     private String firstName;
@@ -35,5 +35,5 @@ public @Data class User extends BaseEntity {
 
     @OneToMany(mappedBy = "user")
     @JsonBackReference
-    private Set<Task> tasks;
+    private List<Task> tasks;
 }

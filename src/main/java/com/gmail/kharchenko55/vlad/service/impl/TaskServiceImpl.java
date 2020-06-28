@@ -55,4 +55,9 @@ public class TaskServiceImpl implements TaskService {
     public Page<Task> getTasksByUserStatus(UserStatus userStatus, Pageable pageable) {
         return taskRepository.findAllByUser_UserStatus(userStatus, pageable);
     }
+
+    @Override
+    public Page<Task> findTaskByUserId(Integer id, Pageable pageable) {
+        return taskRepository.findAllByUser_Id(id, pageable);
+    }
 }

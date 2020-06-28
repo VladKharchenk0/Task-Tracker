@@ -1,5 +1,6 @@
 package com.gmail.kharchenko55.vlad.controller;
 
+import com.gmail.kharchenko55.vlad.dto.ChangeTaskOwnerDto;
 import com.gmail.kharchenko55.vlad.dto.TaskDto;
 import com.gmail.kharchenko55.vlad.dto.UserDto;
 import com.gmail.kharchenko55.vlad.model.task.Task;
@@ -117,5 +118,40 @@ public class TaskRestController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         return ResponseEntity.ok(tasks);
+    }
+
+    @GetMapping(value = "getByUserId/{id}")
+    public ResponseEntity<?> getByUserId(@PathVariable(name = "id") Integer id,
+                                         @PageableDefault(size = 10, sort = {"id"},
+                                                 direction = Sort.Direction.ASC) Pageable pageable) {
+
+        Page<Task> tasks = taskService.findTaskByUserId(id, pageable);
+        if (tasks == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return ResponseEntity.ok(tasks);
+    }
+
+    @PutMapping(value = "changeTaskOwner")
+    public ResponseEntity changeTaskOwner(@RequestBody ChangeTaskOwnerDto changeTaskOwnerDto,
+                                          Principal principal) {
+        User previousOwner = userService.findByEmail(principal.getName());
+        User newOwner = userService.findById(changeTaskOwnerDto.getNewOwnerId());
+        Integer taskId = changeTaskOwnerDto.getTaskId();
+
+        Task task = taskService.getById(taskId);
+        if (task == null) {
+            return ResponseEntity.badRequest().body(String.format("Task with id %d not found", taskId));
+        }
+
+        if (!previousOwner.getTasks().contains(task)) {
+            return ResponseEntity.badRequest().body("You are not the owner of this task");
+        }
+
+        task.setUser(newOwner);
+        taskService.update(task);
+
+        return ResponseEntity.ok(String.format("For task %s set new owner -> %s",
+                task.getTitle(), newOwner.getEmail()));
     }
 }
