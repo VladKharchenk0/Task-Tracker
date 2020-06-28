@@ -1,5 +1,6 @@
 package com.gmail.kharchenko55.vlad.model.task;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.gmail.kharchenko55.vlad.common.BaseEntity;
 import com.gmail.kharchenko55.vlad.model.user.User;
 import lombok.Data;
@@ -22,6 +23,7 @@ public @Data class Task extends BaseEntity {
     private TaskStatus taskStatus;
 
     @ManyToOne
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "user_id", nullable = false)
+    @JsonManagedReference
     private User user;
 }

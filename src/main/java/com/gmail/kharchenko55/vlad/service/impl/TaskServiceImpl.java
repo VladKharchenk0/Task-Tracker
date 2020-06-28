@@ -2,12 +2,13 @@ package com.gmail.kharchenko55.vlad.service.impl;
 
 import com.gmail.kharchenko55.vlad.model.task.Task;
 import com.gmail.kharchenko55.vlad.model.task.TaskStatus;
+import com.gmail.kharchenko55.vlad.model.user.UserStatus;
 import com.gmail.kharchenko55.vlad.repository.TaskRepository;
 import com.gmail.kharchenko55.vlad.service.TaskService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-
-import java.util.Set;
 
 @Service
 public class TaskServiceImpl implements TaskService {
@@ -41,12 +42,17 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
-    public Set<Task> getTasksByStatus(String status) {
-        return null;
+    public Page<Task> getAllTasks(Pageable pageable) {
+        return taskRepository.findAll(pageable);
     }
 
     @Override
-    public Set<Task> getTasksByUserStatus(String userStatus) {
-        return null;
+    public Page<Task> getTasksByStatus(TaskStatus status, Pageable pageable) {
+        return taskRepository.findAllByTaskStatus(status, pageable);
+    }
+
+    @Override
+    public Page<Task> getTasksByUserStatus(UserStatus userStatus, Pageable pageable) {
+        return taskRepository.findAllByUser_UserStatus(userStatus, pageable);
     }
 }

@@ -2,6 +2,7 @@ package com.gmail.kharchenko55.vlad.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.gmail.kharchenko55.vlad.model.user.User;
+import com.gmail.kharchenko55.vlad.model.user.UserStatus;
 import lombok.Data;
 
 @Data
@@ -12,8 +13,9 @@ public class UserDto {
     private String lastName;
     private String email;
     private String password;
+    private UserStatus userStatus;
 
-    public User toUser(){
+    public User toUser() {
         User user = new User();
         user.setFirstName(firstName);
         user.setLastName(lastName);

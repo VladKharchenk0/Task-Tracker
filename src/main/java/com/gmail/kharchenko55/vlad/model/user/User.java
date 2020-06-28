@@ -1,5 +1,6 @@
 package com.gmail.kharchenko55.vlad.model.user;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.gmail.kharchenko55.vlad.common.BaseEntity;
 import com.gmail.kharchenko55.vlad.model.task.Task;
 import lombok.Data;
@@ -33,5 +34,6 @@ public @Data class User extends BaseEntity {
     private UserStatus userStatus;
 
     @OneToMany(mappedBy = "user")
+    @JsonBackReference
     private Set<Task> tasks;
 }

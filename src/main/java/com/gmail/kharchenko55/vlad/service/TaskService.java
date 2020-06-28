@@ -1,8 +1,10 @@
 package com.gmail.kharchenko55.vlad.service;
 
 import com.gmail.kharchenko55.vlad.model.task.Task;
-
-import java.util.Set;
+import com.gmail.kharchenko55.vlad.model.task.TaskStatus;
+import com.gmail.kharchenko55.vlad.model.user.UserStatus;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 public interface TaskService  {
     Task create (Task task);
@@ -13,7 +15,9 @@ public interface TaskService  {
 
     void delete(Integer id);
 
-    Set<Task> getTasksByStatus(String status);
+    Page<Task> getAllTasks(Pageable pageable);
 
-    Set<Task> getTasksByUserStatus(String userStatus);
+    Page<Task> getTasksByStatus(TaskStatus status, Pageable pageable);
+
+    Page<Task> getTasksByUserStatus(UserStatus userStatus, Pageable pageable);
 }

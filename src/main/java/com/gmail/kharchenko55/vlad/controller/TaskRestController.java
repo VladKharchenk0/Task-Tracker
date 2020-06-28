@@ -1,11 +1,16 @@
 package com.gmail.kharchenko55.vlad.controller;
 
 import com.gmail.kharchenko55.vlad.dto.TaskDto;
+import com.gmail.kharchenko55.vlad.dto.UserDto;
 import com.gmail.kharchenko55.vlad.model.task.Task;
 import com.gmail.kharchenko55.vlad.model.user.User;
 import com.gmail.kharchenko55.vlad.service.TaskService;
 import com.gmail.kharchenko55.vlad.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -40,7 +45,7 @@ public class TaskRestController {
     @PutMapping
     public ResponseEntity updateTask(@RequestBody TaskDto taskDto) {
         Task task = taskService.getById(taskDto.getId());
-        if (task==null){
+        if (task == null) {
             throw new IllegalArgumentException(String.format("Task with id %d doesnt exists", taskDto.getId()));
         }
 
@@ -54,7 +59,7 @@ public class TaskRestController {
 
     @GetMapping(value = "delete/{id}")
     public ResponseEntity deleteTaskById(@PathVariable(name = "id") Integer id) {
-       Task task = taskService.getById(id);
+        Task task = taskService.getById(id);
 
         if (task == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -71,7 +76,7 @@ public class TaskRestController {
         if (task == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        if (taskDto.getTaskStatus().equals(task.getTaskStatus())){
+        if (taskDto.getTaskStatus().equals(task.getTaskStatus())) {
             return ResponseEntity.ok(String.format("Task %s already has %s status",
                     task.getTitle(), task.getTaskStatus()));
         }
@@ -81,5 +86,36 @@ public class TaskRestController {
 
         return ResponseEntity.ok(String.format("Task %s successfully changed status to %s",
                 task.getTitle(), task.getTaskStatus()));
+    }
+
+    @GetMapping(value = "getAll")
+    public ResponseEntity<?> getAllTasks(@PageableDefault(size = 10, sort = {"id"},
+            direction = Sort.Direction.ASC) Pageable pageable) {
+        Page<Task> page = taskService.getAllTasks(pageable);
+        return ResponseEntity.ok(page);
+    }
+
+    @GetMapping(value = "getByTaskStatus")
+    public ResponseEntity<?> getByTaskStatus(@RequestBody TaskDto taskDto,
+                                             @PageableDefault(size = 10, sort = {"id"},
+                                                     direction = Sort.Direction.ASC) Pageable pageable) {
+
+        Page<Task> tasks = taskService.getTasksByStatus(taskDto.getTaskStatus(), pageable);
+        if (tasks == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return ResponseEntity.ok(tasks);
+    }
+
+    @GetMapping(value = "getByUserStatus")
+    public ResponseEntity<?> getByUserStatus(@RequestBody UserDto userDto,
+                                             @PageableDefault(size = 10, sort = {"id"},
+                                                     direction = Sort.Direction.ASC) Pageable pageable) {
+
+        Page<Task> tasks = taskService.getTasksByUserStatus(userDto.getUserStatus(), pageable);
+        if (tasks == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return ResponseEntity.ok(tasks);
     }
 }
