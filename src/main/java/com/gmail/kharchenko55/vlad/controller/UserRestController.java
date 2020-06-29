@@ -13,7 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping(value = "/users/")
+@RequestMapping(value = "/users")
 public class UserRestController {
 
     private final UserService userService;
@@ -50,7 +50,7 @@ public class UserRestController {
                 userDto.getFirstName(), userDto.getLastName()));
     }
 
-    @GetMapping(value = "delete/{id}")
+    @GetMapping(value = "/delete/{id}")
     public ResponseEntity deleteUserById(@PathVariable(name = "id") Integer id) {
         User user = userService.findById(id);
 
