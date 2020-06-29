@@ -6,6 +6,7 @@ import com.gmail.kharchenko55.vlad.model.task.Task;
 import com.gmail.kharchenko55.vlad.model.user.User;
 import com.gmail.kharchenko55.vlad.service.TaskService;
 import com.gmail.kharchenko55.vlad.service.UserService;
+import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -19,6 +20,7 @@ import java.security.Principal;
 
 @RestController
 @RequestMapping(value = "/tasks")
+@Api(description = "Task level resources")
 public class TaskRestController {
 
     private final TaskService taskService;

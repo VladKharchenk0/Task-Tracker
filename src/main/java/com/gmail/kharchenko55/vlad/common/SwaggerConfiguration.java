@@ -1,5 +1,6 @@
 package com.gmail.kharchenko55.vlad.common;
 
+import com.google.common.base.Predicates;
 import com.google.common.collect.Lists;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -48,6 +49,7 @@ public class SwaggerConfiguration {
         docket = docket.select()
                 .apis(RequestHandlerSelectors.any())
                 .paths(PathSelectors.any())
+                .paths(Predicates.not(PathSelectors.regex("/error.*")))
                 .build();
         return docket;
     }

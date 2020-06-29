@@ -3,6 +3,7 @@ package com.gmail.kharchenko55.vlad.controller;
 import com.gmail.kharchenko55.vlad.dto.users.UserDto;
 import com.gmail.kharchenko55.vlad.model.user.User;
 import com.gmail.kharchenko55.vlad.service.UserService;
+import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping(value = "/users")
+@Api(description = "User level resources")
 public class UserRestController {
 
     private UserService userService;
