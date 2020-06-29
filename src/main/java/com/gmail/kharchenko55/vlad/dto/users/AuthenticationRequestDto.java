@@ -1,4 +1,4 @@
-package com.gmail.kharchenko55.vlad.dto;
+package com.gmail.kharchenko55.vlad.dto.users;
 
 import lombok.Data;
 

@@ -1,6 +1,6 @@
 package com.gmail.kharchenko55.vlad.controller;
 
-import com.gmail.kharchenko55.vlad.dto.UserDto;
+import com.gmail.kharchenko55.vlad.dto.users.UserDto;
 import com.gmail.kharchenko55.vlad.model.user.User;
 import com.gmail.kharchenko55.vlad.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,14 +24,14 @@ public class UserRestController {
     }
 
     @GetMapping(value = "/{id}")
-    public ResponseEntity<UserDto> getUserById(@PathVariable(name = "id") Integer id) {
+    public ResponseEntity<User> getUserById(@PathVariable(name = "id") Integer id) {
         User user = userService.findById(id);
 
         if (user == null) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
 
-        UserDto result = UserDto.fromUser(user);
+        User result = UserDto.fromUser(user, id);
 
         return new ResponseEntity<>(result, HttpStatus.OK);
     }

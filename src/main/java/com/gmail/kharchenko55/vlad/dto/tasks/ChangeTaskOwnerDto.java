@@ -1,4 +1,4 @@
-package com.gmail.kharchenko55.vlad.dto;
+package com.gmail.kharchenko55.vlad.dto.tasks;
 
 import lombok.Data;
 

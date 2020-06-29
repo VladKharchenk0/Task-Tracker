@@ -1,8 +1,7 @@
 package com.gmail.kharchenko55.vlad.controller;
 
-import com.gmail.kharchenko55.vlad.dto.ChangeTaskOwnerDto;
-import com.gmail.kharchenko55.vlad.dto.TaskDto;
-import com.gmail.kharchenko55.vlad.dto.UserDto;
+import com.gmail.kharchenko55.vlad.dto.tasks.*;
+import com.gmail.kharchenko55.vlad.dto.users.UserStatusDto;
 import com.gmail.kharchenko55.vlad.model.task.Task;
 import com.gmail.kharchenko55.vlad.model.user.User;
 import com.gmail.kharchenko55.vlad.service.TaskService;
@@ -44,7 +43,7 @@ public class TaskRestController {
     }
 
     @PutMapping
-    public ResponseEntity updateTask(@RequestBody TaskDto taskDto) {
+    public ResponseEntity updateTask(@RequestBody UpdateTaskDto taskDto) {
         Task task = taskService.getById(taskDto.getId());
         if (task == null) {
             throw new IllegalArgumentException(String.format("Task with id %d doesnt exists", taskDto.getId()));
@@ -72,7 +71,7 @@ public class TaskRestController {
     }
 
     @PutMapping(value = "changeStatus")
-    public ResponseEntity changeTaskStatus(@RequestBody TaskDto taskDto) {
+    public ResponseEntity changeTaskStatus(@RequestBody ChangeStatusDto taskDto) {
         Task task = taskService.getById(taskDto.getId());
         if (task == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -97,7 +96,7 @@ public class TaskRestController {
     }
 
     @GetMapping(value = "getByTaskStatus")
-    public ResponseEntity<?> getByTaskStatus(@RequestBody TaskDto taskDto,
+    public ResponseEntity<?> getByTaskStatus(@RequestBody GetByStatusDto taskDto,
                                              @PageableDefault(size = 10, sort = {"id"},
                                                      direction = Sort.Direction.ASC) Pageable pageable) {
 
@@ -109,7 +108,7 @@ public class TaskRestController {
     }
 
     @GetMapping(value = "getByUserStatus")
-    public ResponseEntity<?> getByUserStatus(@RequestBody UserDto userDto,
+    public ResponseEntity<?> getByUserStatus(@RequestBody UserStatusDto userDto,
                                              @PageableDefault(size = 10, sort = {"id"},
                                                      direction = Sort.Direction.ASC) Pageable pageable) {
 

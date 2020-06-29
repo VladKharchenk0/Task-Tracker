@@ -1,7 +1,7 @@
 package com.gmail.kharchenko55.vlad.controller;
 
-import com.gmail.kharchenko55.vlad.dto.AuthenticationRequestDto;
-import com.gmail.kharchenko55.vlad.dto.UserDto;
+import com.gmail.kharchenko55.vlad.dto.users.AuthenticationRequestDto;
+import com.gmail.kharchenko55.vlad.dto.users.UserDto;
 import com.gmail.kharchenko55.vlad.model.user.User;
 import com.gmail.kharchenko55.vlad.security.jwt.JwtTokenProvider;
 import com.gmail.kharchenko55.vlad.service.UserService;
@@ -67,7 +67,7 @@ public class AuthenticationRestController {
             throw new IllegalArgumentException(String.format("User with %s email already exists", userDto.getEmail()));
         }
         User user = userDto.toUser();
-       userService.register(user);
+        userService.register(user);
 
         return ResponseEntity.ok(String.format("User %s %s successfully added",
                 userDto.getFirstName(), userDto.getLastName()));
